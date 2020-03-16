@@ -1,0 +1,118 @@
+.Products-Outer-Wrapper {
+  display: flex;
+  flex-flow: column;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  text-align: center;
+  margin-top: 15px;
+  background-color: #f3f3f3;
+  font-family: "Overlock", cursive;
+}
+
+.Products-Outer-Wrapper img {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 15px;
+}
+
+.search-results {
+  flex-basis: 100%;
+}
+.product-container {
+  background-color: white;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 80%;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  height: 250px;
+  font-family: "Overlock", cursive;
+}
+
+.product-container span {
+  font-family: "Overlock", cursive;
+}
+.product-title {
+  font-family: "Crimson Text";
+  font-weight: bolder;
+}
+
+.product-container img {
+  width: 100%;
+  height: 150px;
+  cursor: pointer;
+}
+
+.product-container button {
+  width: 100%;
+  font-family: "Overlock", cursive;
+  height: 25px;
+  border: none;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  font-weight: bolder;
+  transition: all 0.7s linear;
+  background-color: white;
+}
+
+@media screen and (min-width: 810px) {
+  .Products-Outer-Wrapper {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .product-container {
+    flex-basis: 32%;
+    height: 250px;
+    font-family: "Overlock", cursive;
+  }
+  .product-container span {
+    font-family: "Overlock", cursive;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 810px) {
+  .Products-Outer-Wrapper {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .product-container {
+    flex-basis: 48%;
+    height: 250px;
+    font-family: "Overlock", cursive;
+  }
+
+  .product-container span {
+    font-family: "Overlock", cursive;
+  }
+  .product-container:hover button {
+    cursor: pointer;
+  }
+}
+
+.product-container button {
+  background-color: white;
+  color: white;
+  cursor: pointer;
+}
+
+.product-container:hover button {
+  background-color: var(--theme);
+  color: #ededed;
+  cursor: pointer;
+}
+
+.product-container:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.product-container img:hover {
+  transform: scale(1.2);
+  transition: all 1s linear;
+}

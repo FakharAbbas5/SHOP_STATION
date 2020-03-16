@@ -1,0 +1,43 @@
+.home-body h3 {
+  text-align: center;
+}
+.slider-container {
+  width: 100%;
+}
+
+.slider-container img {
+  width: 100%;
+}
+
+.categroy-container {
+  display: flex;
+  justify-content: space-around;
+  height: 200px;
+  margin-top: 15px;
+}
+
+.categroy-container img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.category-card {
+  /* width: 10%; */
+  height: 200px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  font-family: "Source Sans Pro";
+}
+
+.home-body {
+  flex-grow: 1;
+}
+home-body h3 {
+  text-align: center;
+  font-family: "Crimson Text";
+}

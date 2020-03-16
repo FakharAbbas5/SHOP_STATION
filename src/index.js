@@ -1,10 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import { createStore, combineReducers } from "redux";
+import categoryReducer from "./Components/Reducers/Category";
+import totalsReducer from "./Components/Reducers/Totals";
+import { Provider } from "react-redux";
+import FillOrderDetailsModalReducer from "./Components/Reducers/FillOrderDetailsModalReducer";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const allReducers = combineReducers({
+  category: categoryReducer,
+  totals: totalsReducer,
+  FillModal: FillOrderDetailsModalReducer
+});
+
+const store = createStore(
+  allReducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

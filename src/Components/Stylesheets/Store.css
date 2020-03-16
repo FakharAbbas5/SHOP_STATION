@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.wrapper input {
+  height: 15px;
+  padding: 10px;
+  border: 1px solid var(--theme);
+  border-radius: 10px 10px 10px 10px;
+  background-color: #f3f3f3;
+  outline: none;
+  width: 20%;
+}
+
+.External-Wrap {
+  background-color: #f4f4f4;
+  margin-top: 15px;
+  color: var(--theme);
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+}
+
+.server-error {
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+}
