@@ -9,9 +9,7 @@
 }
 
 .buttons-container {
-  padding: 5px 5%;
-  display: flex;
-  justify-content: space-between;
+  display: none;
 }
 
 .btn-container {
@@ -32,6 +30,11 @@
   transform: scale(1.2);
   transition: all 0.5s linear;
   cursor: pointer;
+}
+
+.product-image-container img{
+  width: 100%;
+  height: 200px;
 }
 
 .cart {
@@ -56,6 +59,10 @@
   color: var(--theme);
 }
 
+.buttons-container{
+  display: none;
+}
+
 @media screen and (min-width: 810px) {
   .product-detail-outer-wraper {
     display: flex;
@@ -72,6 +79,14 @@
 
   .product-details-container {
     flex-basis: 50%;
+  }
+  .buttons-container {
+    padding: 5px 5%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .sm-buttons-container{
+    display: none;
   }
 }
 

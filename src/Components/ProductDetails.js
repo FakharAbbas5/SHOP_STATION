@@ -45,6 +45,21 @@ function ProductDetails(props) {
               {product.inCart ? "Already in Cart" : "Add to Cart"}
             </Button>
           </div>
+          <div className="sm-buttons-container">
+            <Link to="/store">
+              <button className="btn-container store" style={{ width: "100px", background: "transparent", borderRadius: "0.5rem" }}>
+                Store
+              </button>
+            </Link>
+
+            <button
+              className="btn-container cart"
+              onClick={() => add2Cart(product)}
+              style={{ width: "100px", borderRadius: "0.5rem", marginLeft: "5px" }}
+            >
+              {product.inCart ? "Already in Cart" : "Add to Cart"}
+            </button>
+          </div>
         </div>
       </div>
       {isModalOpen ? <Modal /> : null}

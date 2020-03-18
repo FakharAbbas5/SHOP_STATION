@@ -85,12 +85,6 @@
   cursor: pointer;
 }
 
-.confirm-button {
-  /* align-self: center; */
-  width: 70%;
-  margin: auto;
-  /* background-color: thistle; */
-}
 
 .cancel-button {
   margin-top: 10px;
@@ -121,4 +115,33 @@
   font-size: 12px;
   color: rgb(73, 73, 73);
   margin-left: 4px;
+}
+
+.checkout-buttons-container{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width:810px){
+  .checkout-outer-container{
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+    justify-content: space-around;
+  }
+
+  .confirm-button{
+    margin-left: 0;
+    margin-top: 15px;
+  }
+
+  .summary{
+    display: none;
+  }
+
+  .checkout-details-container{
+    margin-top: 100px;
+  }
 }

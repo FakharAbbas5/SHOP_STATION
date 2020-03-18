@@ -41,3 +41,10 @@ home-body h3 {
   text-align: center;
   font-family: "Crimson Text";
 }
+
+
+@media screen and (max-width:600px){
+  .category-card img{
+    width: 200px;
+  }
+}

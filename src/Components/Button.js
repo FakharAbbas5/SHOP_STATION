@@ -18,7 +18,7 @@ const Button = styled.button`
   font-family: "Lobster";
   &:hover {
     background: ${props =>
-      props.cart ? "var(--mainYellow)" : "var(--lightBlue)"};
+    props.cart ? "var(--mainYellow)" : "var(--lightBlue)"};
     color: var(--mainBlue);
   }
 

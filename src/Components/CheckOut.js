@@ -25,6 +25,7 @@ function CheckOut() {
   const gs = useSelector(state => state);
   const { totals, FillModal } = gs;
   const regEmail = RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+  const regFullName = RegExp(/[a-z]{1,15}$/);
   const regContact = RegExp(
     /^((\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/
   );
@@ -48,9 +49,9 @@ function CheckOut() {
     switch (event.target.name) {
       case "name":
         setCustomerName(event.target.value);
-        event.target.value.length < 1
-          ? setCustomerNameError("Please Enter Name")
-          : setCustomerNameError("");
+        event.target.value.match(regFullName)
+          ? setCustomerNameError("")
+          : setCustomerNameError("Please Enter Valid Name");
         return;
       case "email":
         setCustomerEmail(event.target.value);
@@ -77,14 +78,10 @@ function CheckOut() {
   };
   useEffect(() => {
     console.log(
-      customer_shipping_address_error,
       customer_name_error,
-      customer_email_error
     );
   }, [
-    customer_shipping_address_error,
-    customer_name_error,
-    customer_email_error
+    customer_name_error
   ]);
 
   const formIsValid = () => {
@@ -132,8 +129,7 @@ function CheckOut() {
         customer_email,
         customer_contact,
         customer_shipping_address,
-        products: [],
-        total: totals.total
+        products: []
       };
       Cart.forEach(item => {
         body.products = body.products.concat({
@@ -237,21 +233,23 @@ function CheckOut() {
           </div>
         </div>
         <div className="checkout-summary-container">
-          <h4>Order Summary</h4>
+
           <div className="summary">
+            <h4>Order Summary</h4>
             <h6>No. of Products: {totals.NoOfProducts}</h6>
             <h6>SubTotal: {totals.subtotal}₹</h6>
             <h6>Tax: {totals.tax}₹</h6>
             <h6>Total: {totals.total}₹</h6>
           </div>
-          <div className="confirm-button">
-            <button onClick={confirmOrder}>Confirm</button>
-          </div>
-          <div className="cancel-button">
-            <Link to="/store">
-              {" "}
-              <button onClick={emptyCart}>Cancel</button>
-            </Link>
+          <div className="checkout-buttons-container">
+            <div className="confirm-button">
+              <button onClick={confirmOrder}>Confirm</button>
+            </div>
+            <div className="cancel-button">
+              <Link to="/store">
+                <button onClick={emptyCart}>Cancel</button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
