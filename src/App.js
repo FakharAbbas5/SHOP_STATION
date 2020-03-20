@@ -6,11 +6,13 @@ import Nav from "./Components/Nav";
 import Router from "./Components/Router";
 import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+import Product from "./Components/Product";
 export const StoreContext = React.createContext();
 function App() {
   const cat = useSelector(state => state.category);
   console.log(cat);
   const [Products, setProducts] = useState([]);
+  const [ProductsAll, setProductsAll] = useState([]);
   const [Cart, setCart] = useState([]);
   const [CartTotal, setCartTotal] = useState();
   const [cartAfterRemoval, setCartAfterRemoval] = useState();
@@ -22,6 +24,8 @@ function App() {
   const [orderSuccessModal, setOrderSuccessModal] = useState(false);
   const [catData, setCatData] = useState({});
   const [searching, setSearching] = useState(false);
+  const [categoryProducts, setCategoryProducts] = useState([]);
+  const [currentItem, setCurrentItem] = useState({});
   // const [itemInCart, setItemInCart] = useState(false);
 
   useEffect(() => {
@@ -29,6 +33,7 @@ function App() {
       Axios.get("http://localhost:3001/products")
         .then(res => {
           setProducts(res.data);
+          setProductsAll(res.data);
         })
         .catch(err => {
           console.log(err);
@@ -38,6 +43,7 @@ function App() {
 
   const fetchCategoryDetails = async category => {
     const res = await Axios.get(`http://localhost:3001/categories/${category}`);
+    console.log(res.data);
     setCatData(res.data);
   };
 
@@ -48,7 +54,7 @@ function App() {
       Axios.get(`http://localhost:3001/products/category/${category}`).then(
         res => {
           console.log(res.data);
-          setProducts(res.data);
+          setCategoryProducts(res.data);
           setCategory("");
           setSearchResult([]);
           fetchCategoryDetails(category);
@@ -66,12 +72,19 @@ function App() {
   };
 
   const add2Cart = async product => {
+    console.log(product)
     var alreadyInCart = false;
     setModalProduct(product);
+    const tempProducts2 = JSON.parse(JSON.stringify(ProductsAll));
+    console.log(tempProducts2);
+    const item = tempProducts2.find(item => {
+      return product._id == item._id
+    })
+    const indexInAll = tempProducts2.indexOf(item);
+    console.log(indexInAll)
     Cart.forEach(item => {
       if (item._id === product._id) {
         alreadyInCart = true;
-        // setItemInCart(true);
       }
     });
     if (alreadyInCart) {
@@ -79,20 +92,32 @@ function App() {
       return console.log("Item Already In Cart");
     }
     if (!product.quantity) {
+      console.log(Products)
       product.quantity = 1;
       product.total = product.quantity * product.product_unit_price;
       product.inCart = true;
+      item.quantity = 1;
+      item.total = product.quantity * product.product_unit_price;
+      item.inCart = true;
+      console.log(Products)
     }
+    console.log(item)
+
+    tempProducts2[indexInAll] = item;
+    setProducts(tempProducts2);
     await setCart([...Cart, product]);
     totals();
     setModalOpen(true);
-    // setItemInCart(false);
   };
 
   useEffect(() => {
     console.log(Cart);
   }, [Cart]);
 
+
+  useEffect(() => {
+    console.log(Products);
+  }, [Products])
   const increment = _id => {
     const tempCart = JSON.parse(JSON.stringify(Cart));
     tempCart.forEach(item => {
@@ -130,14 +155,24 @@ function App() {
     console.log(_id);
     const tempCart = JSON.parse(JSON.stringify(Cart));
     const tempProducts = JSON.parse(JSON.stringify(Products));
+    const tempProducts2 = JSON.parse(JSON.stringify(ProductsAll));
+    console.log(tempProducts2)
+    tempCart.forEach(product => {
+      const productIndex = tempProducts2.indexOf(product);
+      console.log(productIndex)
+    })
+    console.log(tempProducts)
     const product = tempProducts.find(item => item._id === _id);
     const index = tempProducts.indexOf(product);
+    console.log(index);
     tempProducts[index].inCart = false;
     delete tempProducts[index].quantity;
     delete tempProducts[index].total;
     const cartAfterRemoval = tempCart.filter(item => {
       return item._id !== _id;
     });
+
+    console.log(cartAfterRemoval);
     setCart(cartAfterRemoval);
     setProducts(tempProducts);
     totals();
@@ -187,6 +222,21 @@ function App() {
     setOrderSuccessModal(false);
   };
 
+  const emptyCategories = () => {
+    setCategoryProducts([]);
+    setCatData({});
+  }
+
+  const checkCartStatus = (product) => {
+
+    const prod = Products.find(item => {
+      return item._id === product._id
+    });
+
+    const index = Products.indexOf(prod);
+    console.log(index);
+    return index;
+  }
   return (
     <div className="App">
       <StoreContext.Provider
@@ -213,7 +263,10 @@ function App() {
           OrderSuccessModalClose: OrderSuccessModalClose,
           catData: catData,
           searching: searching,
-          category: category
+          category: category,
+          categoryProducts,
+          emptyCategories,
+          checkCartStatus
         }}
       >
         <Router></Router>

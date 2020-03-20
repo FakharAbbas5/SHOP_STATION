@@ -8,7 +8,7 @@ import { StoreContext } from "../App";
 import { useContext } from "react";
 function Nav() {
   const Store = useContext(StoreContext);
-  const { changeCategory } = Store;
+  const { changeCategory, emptyCategories } = Store;
   const [category, setCategory] = useState("");
   const dispatch = useDispatch();
   const dispatchCategory = category => {
@@ -35,6 +35,7 @@ function Nav() {
             <Link
               to="/store"
               style={{ textDecoration: "none", color: "var(--theme)" }}
+              onClick={emptyCategories}
             >
               <li className="Page-Link">Store</li>
             </Link>
